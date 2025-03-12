@@ -4,12 +4,12 @@ A real-time chat application built using MERN Stack (MongoDB, Express, React, No
 ---
 
 ## Features
-✅ Real-time messaging with Socket.io
-✅ User authentication (JWT-based Login & Signup)
-✅ MongoDB storage for messages & users
-✅ Tailwind CSS for responsive UI
-✅ Secure .env file handling
-✅ Deployment-ready on Render/Vercel
+✅ Real-time messaging with Socket.io   
+✅ User authentication (JWT-based Login & Signup)   
+✅ MongoDB storage for messages & users    
+✅ Tailwind CSS for responsive UI   
+✅ Secure .env file handling    
+✅ Deployment-ready on Render/Vercel    
 
 ---
 
