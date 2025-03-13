@@ -3,27 +3,48 @@ A real-time chat application built using MERN Stack (MongoDB, Express, React, No
 
 ---
 
+
+This is the frontend of a real-time chat application built using:
+
+- ⚡ **Vite** for fast development
+- 🎨 **TailwindCSS** for styling
+- 🔄 **React Router** for navigation
+- 📡 **Socket.io-client** (To be added) for real-time messaging
+
+---
+
 ## 📂 Project Structure
 mern-chat-app/ 
 ```
-├── backend/                # Node.js, Express, MongoDB, Socket.io 
-│ ├── config/               # Database Connection 
-│ │ ├── db.js               # MongoDB connection setup 
-│ ├── models/               # Mongoose Schemas (User) 
-│ │ ├── User.js             # User schema (username, email, password) 
-│ ├── routes/               # API Routes (Authentication) 
-│ │ ├── authRoutes.js       # Signup & Login with JWT 
-│ ├── server.js             # Main Express Server 
-│ ├── .env                  # Environment Variables 
-│ ├── package.json          # Backend Dependencies 
-├── frontend/               # React + TailwindCSS (To be added) 
-│ ├── src/ 
-│ ├── public/ 
-│ ├── package.json 
-│ ├── README.md 
-├──.gitignore               # Ignored Files 
-├── README.md               # Main Project Documentation
-```
+├── backend/                # Node.js, Express, MongoDB, Socket.io
+│ ├── config/               # Database Connection
+│ │ ├── db.js               # MongoDB connection setup
+│ ├── models/               # Mongoose Schemas (User)
+│ │ ├── User.js             # User schema (username, email, password)
+│ ├── routes/               # API Routes (Authentication)
+│ │ ├── authRoutes.js       # Signup & Login with JWT
+│ ├── server.js             # Main Express Server
+│ ├── .env                  # Environment Variables
+│ ├── package.json          # Backend Dependencies
+├── frontend/               # React + TailwindCSS + React Router
+│ ├── node_modules          # Frontend dependencies
+│ ├── public/               # Static assets
+│ ├── src/                  # React source code
+│ │ ├── components/         # Reusable UI components
+│ │ ├── pages/              # React Router pages (Login, Chat, Profile)
+│ │ ├── App.css             # Global styles
+│ │ ├── App.jsx             # Main React component
+│ │ ├── index.css           # TailwindCSS styles
+│ │ ├── main.jsx            # React entry point
+│ ├── .eslintrc.js          # ESLint configuration
+│ ├── index.html            # Main HTML file
+│ ├── package-lock.json     # Dependency lock file
+│ ├── package.json          # Frontend Dependencies
+│ ├── postcss.config.js     # PostCSS Configuration
+│ ├── tailwind.config.js    # TailwindCSS Configuration
+│ ├── vite.config.js        # Vite Configuration
+├── .gitignore               # Ignored Files
+├── README.md               # Main Project Documentation```
 ---
 
 ## Features
@@ -50,11 +71,9 @@ cd mern-chat-app
 ```
 
 2️⃣ Backend Setup
-
 ```bash
 cd backend
 npm install
-
 ```
 Create a .env file in the backend/ folder:
 
@@ -64,7 +83,6 @@ JWT_SECRET=your-secret-key
 PORT=5000
 
 ```
-
 Run the backend:
 ```bash
 npx nodemon server.js
@@ -72,13 +90,25 @@ npx nodemon server.js
 ```
 Your backend should now be running on http://localhost:5000 🚀
 
+3️⃣ frontend Setup
+
+```bash
+cd frontend
+```
+Install dependencies:
+```bash
+npm install
+```
+ Start the development server:
+
+```bash
+npm run dev
+```
+Your frontend should now be running on http://localhost:5173/
 ---
 
 ##  API Endpoints
-3️⃣ Test Authentication Routes
-Use Postman/Thunder Client:
-
-- ✅ Register a User   
+### Register a User   
 
  ```
 POST → http://localhost:5000/api/auth/register
@@ -115,11 +145,3 @@ POST → http://localhost:5000/api/auth/login
   }
 }
 ```
-
-
-
-
-
-
-
-
