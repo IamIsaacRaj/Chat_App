@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -9,6 +10,9 @@ const router = express.Router();
  * @route           POST /api/auth/register
  * @description     Register a new user
  * @access          Public
+ * @param {express.Request} req - Express request object containing user details
+ * @param {express.Response} res - Express response object
+ * @returns {Object} JSON response with success message or error message
  */
 
 router.post("/register", async (req, res) => {
@@ -43,6 +47,9 @@ router.post("/register", async (req, res) => {
  * @route           POST /api/auth/login
  * @description     Login user and return JWT token
  * @access          Public
+ * @param {express.Request} req - Express request object containing login credentials
+ * @param {express.Response} res - Express response object
+ * @returns {Object} JSON response with JWT token or error message
  */
 
 router.post("/login", async (req, res) => {
@@ -71,6 +78,19 @@ router.post("/login", async (req, res) => {
     console.error("Error in /login:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
+});
+
+/**
+ * @route           GET /api/auth/user
+ * @description     Get logged-in user details (Protected Route)
+ * @access          Private (Requires JWT)
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @returns {Object} - Returns user data (id, username, email)
+ */
+
+router.get("/user", protect, async (req, res) => {
+  res.json(req.user);
 });
 
 export default router;
