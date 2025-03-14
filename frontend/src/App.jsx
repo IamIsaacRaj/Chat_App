@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+
+// connect to backend
+const socket = io("http://localhost:5000", { transports: ["websocket"] });
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
+  // Listen for incoming messages
+  useEffect(() => {
+    socket.on("receiveMessage", (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, []);
+
   const sendMessage = () => {
     if (input.trim() === "") return;
-    setMessages([...messages, { text: input, sender: "You" }]);
+
+    const messageData = { text: input, sender: "user" };
+    socket.emit("sendMessage", messageData);
     setInput("");
   };
 
