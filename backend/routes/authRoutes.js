@@ -10,9 +10,6 @@ const router = express.Router();
  * @route           POST /api/auth/register
  * @description     Register a new user
  * @access          Public
- * @param {express.Request} req - Express request object containing user details
- * @param {express.Response} res - Express response object
- * @returns {Object} JSON response with success message or error message
  */
 
 router.post("/register", async (req, res) => {
@@ -34,9 +31,20 @@ router.post("/register", async (req, res) => {
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
-    console.log("User registered successfully");
+    // ✅ Generate JWT token for immediate login
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({
+      message: "User registered successfully",
+      token, // ✅ Send token in response
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
   } catch (error) {
     console.error("Error in /register:", error); // Log actual error
     res.status(500).json({ message: "Server error", error: error.message });
@@ -47,9 +55,6 @@ router.post("/register", async (req, res) => {
  * @route           POST /api/auth/login
  * @description     Login user and return JWT token
  * @access          Public
- * @param {express.Request} req - Express request object containing login credentials
- * @param {express.Response} res - Express response object
- * @returns {Object} JSON response with JWT token or error message
  */
 
 router.post("/login", async (req, res) => {
@@ -84,9 +89,6 @@ router.post("/login", async (req, res) => {
  * @route           GET /api/auth/user
  * @description     Get logged-in user details (Protected Route)
  * @access          Private (Requires JWT)
- * @param {Request} req - Express request object
- * @param {Response} res - Express response object
- * @returns {Object} - Returns user data (id, username, email)
  */
 
 router.get("/user", protect, async (req, res) => {

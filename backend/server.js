@@ -4,7 +4,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
 import connectDB from "./config/db.js";
-import authRoutes from "./routes/authRoutes.js"
+import authRoutes from "./routes/authRoutes.js";
 
 // Load Environment Variables
 dotenv.config();
@@ -23,12 +23,12 @@ app.use(express.json());
 // Connect Route
 app.use("/api/auth", authRoutes);
 
-
 // Socket.io setup
 
 const io = new Server(server, {
   cors: {
     origin: "*", // Allows all Origins(update this later for security)
+    credentials: true, // ✅ Allow cookies & auth headers
   },
 });
 
